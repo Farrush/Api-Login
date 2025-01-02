@@ -29,7 +29,5 @@ Exemplo: authorization: "Bearer ehYGVHBKJghjgfhghjd"
 recebe o email pelo corpo e envia um email de recuperação para a conta
 
 Requer a criação de uma conta no mailtrap e a devida configuração de suas credenciais no .env, infelizmente esse método só manda emails para a conta de email usada no mailtrap
-<video width="640" height="480" controls>
-  <source src="mailExample.mp4" type="video/mp4">
-  Seu navegador não suporta uma tag de vídeo.
-</video>
+
+<img src="./mailExample.gif" width="640"/>
