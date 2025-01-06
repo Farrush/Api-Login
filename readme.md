@@ -16,6 +16,10 @@ recebe name, email e pass, cadastra um novo usuário e retorna o usuário cadast
 #### get /usuario/profile
 retorna o usuário verificado e autenticado pelo jwt 
 
+#### put /usuario?token&id
+Primariamente para alteração de senha, recebe o token de alteração de senha como parâmetro de Query.
+A nova senha é passada pelo body e é criptografada antes de ser registrada no banco de dados.
+
 #### post /login
 recebe email e pass no body e retorna os dados do usuário e um token JWT gerado com o id desse usuário
 

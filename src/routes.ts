@@ -8,10 +8,13 @@ const routes = Router()
 
 routes.post('/usuario', new LoginController().create as any)
 routes.post('/login', new LoginController().login as any)
-routes.post('/login/changepass', new LoginController().requestPasswordChange as any)
 
 routes.get('/token', new TokenController().findAll as any)
 routes.post('/token', new TokenController().create as any)
+
+routes.post('/login/changepass', new LoginController().requestPasswordChange as any)
+routes.put('/usuario', new LoginController().passwordReset as any)
+
 
 routes.use(authMiddleware)
 //Rotas que usam autenticação JWT

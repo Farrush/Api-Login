@@ -50,7 +50,31 @@ export class LoginController{
 			token: token,
 		})
     }
+    async passwordReset(req: Request, res: Response){
+        const token: string = req.query.token as string
+        const id: number = Number(req.query.id)
+        const user = await loginRepository.findOneBy({id})
+        const tokenObj = await tokenRepository.findOneBy({login: user!})
 
+        if(!token || !user || !id || !tokenObj || !await bcrypt.compare(token, tokenObj.token))
+            throw new UnauthorizedError("Token de reset de senha inválido")
+        
+
+        const pass = req.body.pass
+        
+        if(!pass)
+            throw new BadRequestError("Nova senha não foi inserida.")
+
+        const newUser = loginRepository.create({...user, pass: await bcrypt.hash(pass, 10)})
+
+        await loginRepository.update(newUser.id, newUser)
+
+        await tokenRepository.update(tokenObj.id, {...tokenObj, token: await bcrypt.hash(jwt.sign({ id: newUser.id }, process.env.JWT_PWD ?? ''), 10)})
+
+        const {pass: _, ...responseUser} = newUser
+        res.send({user: responseUser})
+
+    }
     async getProfile(req: Request, res: Response){ 
 
         return res.status(200).json(req.login)
